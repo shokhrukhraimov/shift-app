@@ -1,43 +1,28 @@
+import os
+from aiogram import Bot, Dispatcher, executor, types
+from fastapi import FastAPI
+import uvicorn
 import asyncio
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from aiogram import Bot, Dispatcher, types
-from contextlib import asynccontextmanager
 
-#--- BOT SOZLAMALARI ---
-TOKEN = '8440176507:AAGzXvxlDM3TBUQVxAAOqx_hDvOew9zPWiI'
+API_TOKEN = '8440176507:AAGzXvxlDM3TBUQVxAAOqx_hDvOew9zPWiI'
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
+app = FastAPI()
 
 @dp.message_handler(commands=['start'])
-async def start(message: types.Message):
+async def send_welcome(message: types.Message):
 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-web_app = types.WebAppInfo(url="")
-markup.add(types.KeyboardButton("📅 Smenani ko'rish", web_app=web_app))
-await message.answer("Salom! Tizim 24/7 rejimida ishlamoqda.", reply_markup=markup)
+markup.add(types.KeyboardButton("Taqvimni ochish", web_app=types.WebAppInfo(url="")))
+await message.answer("Xush kelibsiz!", reply_markup=markup)
 
-#--- FASTAPI SOZLAMALARI ---
-@asynccontextmanager
-async def lifespan(app: FastAPI):
+@app.on_event("startup")
+async def on_startup():
 asyncio.create_task(dp.start_polling())
-yield
-await bot.session.close()
 
-app = FastAPI(lifespan=lifespan)
+@app.get("/")
+async def read_root():
+return {"status": "Bot ishlayapti"}
 
-try:
-app.mount("/static", StaticFiles(directory="static"), name="static")
-except:
-pass
-
-templates = Jinja2Templates(directory="templates")
-
-@app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-return templates.TemplateResponse("index.html", {"request": request})
-
-@app.get("/health")
-async def health():
-return {"status": "ok"}
+if name == "main":
+uvicorn.run(app, host="0.0.0.0", port=10000)
