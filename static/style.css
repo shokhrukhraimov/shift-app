@@ -1,0 +1,40 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 15px;
+}
+
+.header {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.day-card {
+    background: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.past { border-left: 5px solid #ccc; background: #e9ecef; }
+.today { border-left: 5px solid #28a745; background: #f8fff9; }
+.future { border-left: 5px solid #007bff; }
+
+.shift-content {
+    display: none; /* Dastlab yopiq turadi */
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    color: #555;
+}
+
+.day-title {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
