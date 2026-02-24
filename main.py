@@ -4,7 +4,7 @@ from fastapi import FastAPI
 import uvicorn
 import asyncio
 
-API_TOKEN = '8440176507:AAGzXvxlDM3TBUQVxAAOqx_hDvOew9zPWiI'
+TOKEN = '8440176507:AAGzXvxlDM3TBUQVxAAOqx_hDvOew9zPWiI'
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
