@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from aiogram import Bot, Dispatcher, types
 from contextlib import asynccontextmanager
 
---- BOT SOZLAMALARI ---
+#--- BOT SOZLAMALARI ---
 TOKEN = '8440176507:AAGzXvxlDM3TBUQVxAAOqx_hDvOew9zPWiI'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
@@ -18,7 +18,7 @@ web_app = types.WebAppInfo(url="")
 markup.add(types.KeyboardButton("📅 Smenani ko'rish", web_app=web_app))
 await message.answer("Salom! Tizim 24/7 rejimida ishlamoqda.", reply_markup=markup)
 
---- FASTAPI SOZLAMALARI ---
+#--- FASTAPI SOZLAMALARI ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 asyncio.create_task(dp.start_polling())
